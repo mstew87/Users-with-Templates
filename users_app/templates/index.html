@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <title>Users</title>
+  </head>
+  <body>
+    <h2>All Users</h2>
+    <div id="user-div">
+      <table class="table table-dark">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Age</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+          <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.first_name }} {{user.last_name}}</td>
+            <td>{{ user.email_address }}</td>
+            <td>{{ user.age }}</td>
+            <td><a href="/delete/{{ user.id }}">DELETE</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <h2>Add user:</h2>
+      <div class="container">
+        <form action="/add-user" id="add_user_form" method="POST">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="first_name">First Name</label>
+            <input
+              type="text"
+              id="first_name"
+              name="first_name"
+              class="form-control-sm"
+            />
+          </div>
+          <div class="form-group">
+            <label for="last_name">Last Name</label>
+            <input
+              type="text"
+              id="last_name"
+              name="last_name"
+              class="form-control-sm"
+            />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              name="email_address"
+              id="email_address"
+              class="form-control-sm"
+            />
+          </div>
+          <div class="form-group">
+            <label for="age">Age</label>
+            <input type="number" name="age" id="age" class="form-control-sm" />
+          </div>
+          <button class="btn btn-dark">Submit</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
